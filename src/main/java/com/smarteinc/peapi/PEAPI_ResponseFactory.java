@@ -27,11 +27,27 @@ public class PEAPI_ResponseFactory extends ResponseService {
 		return headers;
 	}
 	
+	public static Map<String, String> getHeadersWithAuthorization(String authorizationCode) {
+		headers.put("Authorization", authorizationCode);
+		return headers;
+	}
+	
 	private static String app_name = "api";
 
+	public Response peModeResponse(String url, String jsonBody, Map<String, String> hm )
+	{
+		return getResponse(url, jsonBody, null, "application/json",hm, RequestMethodType.POST, false);
+	}
+	
 	public Response peResponse(String url, String jsonBody, String mode )
 	{
 		return getResponse(url, jsonBody, null, "application/json",getHeadersWithMode(mode), RequestMethodType.POST, false);
+	}
+	
+	
+	public Response directDialResponse(String url, String jsonBody, String authorizationCode )
+	{
+		return getResponse(url, jsonBody, null, "application/json",getHeadersWithAuthorization(authorizationCode), RequestMethodType.POST, false);
 	}
 
 
